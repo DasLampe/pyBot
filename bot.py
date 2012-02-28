@@ -18,13 +18,13 @@ DEBUG	= True
 def write_log(msg):
 	if DEBUG == True:
 		print("["+time.asctime()+"]"+msg)
-	file		= open(os.path.dirname(__file__)+"log.dat", "a")
+	file		= open(os.path.dirname(__file__)+"/log.dat", "a")
 	file.write("["+time.asctime()+"]"+msg+"\n")
 	file.close()
 
 class pytalForum:
 	def __init__(self):
-		self.save_file				= os.path.dirname(__file__)+"pytalForum.dat"
+		self.save_file				= os.path.dirname(__file__)+"/pytalForum.dat"
 		self.br						= mechanize.Browser()
 		self.br.addheaders			= [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/8.0')]
 		self.newest_post_username	= ""
@@ -109,7 +109,7 @@ def main():
 	jid = xmpp.protocol.JID('webmasterandre@jabber.pytal.net')
 	pwd = '1Pf@df!nd3r'
 	room = 'pytal@conference.jabber.pytal.net'
-	botname	= "pyBot Werner"
+	botname	= "pyBot Test"
 	
 	write_log("Start Jabber Bot")
 	
@@ -127,6 +127,8 @@ def main():
 	write_log("Join room")
 	join	= xmpp.protocol.Presence(to='%s/%s' % (room, botname))
 	bot.send(join)
+	
+	bot.Process(1)
 	
 	write_log("Jabber Bot successfuly starts")
 

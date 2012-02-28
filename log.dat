@@ -111,3 +111,47 @@ Neuer Post in  Der Spam-Thread (von SammysHP) - http://www.pytal.de/topic,0,0,6
 [Tue Feb 28 11:18:39 2012]Error - Except!
 [Tue Feb 28 11:18:39 2012]Start Bot
 [Tue Feb 28 11:18:39 2012]Start Jabber Bot
+[Tue Feb 28 20:34:57 2012]Start Bot
+[Tue Feb 28 20:34:57 2012]Start Jabber Bot
+[Tue Feb 28 20:34:58 2012]Join room
+[Tue Feb 28 20:34:58 2012]Jabber Bot successfuly starts
+[Tue Feb 28 20:34:58 2012]End Init. Go into while
+[Tue Feb 28 20:34:58 2012]Borwse to pytal.de
+[Tue Feb 28 20:34:59 2012]Load data
+[Tue Feb 28 20:34:59 2012]Data loaded
+[Tue Feb 28 20:34:59 2012]Find links
+[Tue Feb 28 20:34:59 2012]Search newest post
+[Tue Feb 28 20:34:59 2012]Find newest post
+[Tue Feb 28 20:34:59 2012]Save data form new topic
+[Tue Feb 28 20:34:59 2012]Search newest post
+[Tue Feb 28 20:35:00 2012]Find newest post
+[Tue Feb 28 20:35:00 2012]Search newest post
+[Tue Feb 28 20:35:00 2012]Find newest post
+[Tue Feb 28 20:35:00 2012]First link same the old
+[Tue Feb 28 20:35:00 2012]New posts in old topic
+[Tue Feb 28 20:35:00 2012]Return Link to old topic, with new post
+[Tue Feb 28 20:35:00 2012]Send Message!
+[Tue Feb 28 20:35:00 2012]Neuer Post in  Hilfe bei Wordpress gesucht. (von phardt) - http://www.pytal.de/topic,0,0,12192,9999#l
+Neuer Post in  Keine Aktualisierung der Dateien der Subdomain (von Drengskapur) - http://www.pytal.de/topic,0,0,12188,9999#l
+Neuer Post in  Ausfall / Infor (von nenad) - http://www.pytal.de/topic,0,0,12191,9999#l
+
+[Tue Feb 28 20:35:00 2012]Message sends
+[Tue Feb 28 20:35:00 2012]Done ... wait 5 min and do again
+[Tue Feb 28 20:40:00 2012]Borwse to pytal.de
+[Tue Feb 28 20:40:01 2012]Load data
+[Tue Feb 28 20:40:01 2012]Data loaded
+[Tue Feb 28 20:40:01 2012]Find links
+[Tue Feb 28 20:40:01 2012]Search newest post
+[Tue Feb 28 20:40:01 2012]Find newest post
+[Tue Feb 28 20:40:01 2012]Save data form new topic
+[Tue Feb 28 20:40:01 2012]Search newest post
+[Tue Feb 28 20:40:01 2012]Find newest post
+[Tue Feb 28 20:40:01 2012]Search newest post
+[Tue Feb 28 20:40:02 2012]Find newest post
+[Tue Feb 28 20:40:02 2012]First link same the old
+[Tue Feb 28 20:40:02 2012]Send Message!
+[Tue Feb 28 20:40:02 2012]Neuer Post in  Fehler: Netzwerk-Zeitüberschreitung (von webmasterandre) - http://www.pytal.de/topic,0,0,12193,9999#l
+Neuer Post in  Der Spam-Thread (von webmasterandre) - http://www.pytal.de/topic,0,0,6902,9999#l
+
+[Tue Feb 28 20:40:02 2012]Message sends
+[Tue Feb 28 20:40:02 2012]Done ... wait 5 min and do again
