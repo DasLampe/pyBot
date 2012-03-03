@@ -12,19 +12,19 @@
 ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ##   GNU General Public License for more details.
 
-import xmpp, time, re, mechanize,os, threading
+import xmpp, time, re, mechanize, threading, os
 DEBUG	= False
 
 def write_log(msg):
 	if DEBUG == True:
 		print("["+time.asctime()+"]"+msg+"\n")
-	file		= open(os.path.dirname(__file__)+"/log.dat", "a")
+	file		= open(os.path.dirname(os.path.realpath(__file__))+"/log.dat", "a")
 	file.write("["+time.asctime()+"]"+msg+"\n")
 	file.close()
 
 class pytalForum:
 	def __init__(self):
-		self.save_file				= os.path.dirname(__file__)+"/pytalForum.dat"
+		self.save_file				= os.path.dirname(os.path.realpath(__file__))+"/pytalForum.dat"
 		self.br						= mechanize.Browser()
 		self.br.addheaders			= [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/8.0')]
 		self.newest_post_username	= ""
