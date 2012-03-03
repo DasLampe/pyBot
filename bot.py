@@ -107,7 +107,7 @@ class pytalForum:
 def commandBot(bot,botname):
 	write_log("Start commandBot")
 	cache = []
-	room  = "pybottest@conference.jabber.pytal.net"
+	room  = "pytal@conference.jabber.pytal.net"
 	
 	#if user come online or go offline
 	def presenceCB(conn,msg):
@@ -152,8 +152,8 @@ def main():
 	write_log("Start Bot")
 	jid = xmpp.protocol.JID('webmasterandre@jabber.pytal.net')
 	pwd = '1Pf@df!nd3r'
-	room = 'pybottest@conference.jabber.pytal.net'
-	botname	= "pyBot Test"
+	room = 'pytal@conference.jabber.pytal.net'
+	botname	= "pyBot Werner"
 	
 	write_log("Start Jabber Bot")
 	
