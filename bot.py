@@ -12,12 +12,12 @@
 ##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ##   GNU General Public License for more details.
 
-import xmpp, time, re, mechanize,os
-DEBUG	= True
+import xmpp, time, re, mechanize,os, threading
+DEBUG	= False
 
 def write_log(msg):
 	if DEBUG == True:
-		print("["+time.asctime()+"]"+msg)
+		print("["+time.asctime()+"]"+msg+"\n")
 	file		= open(os.path.dirname(__file__)+"/log.dat", "a")
 	file.write("["+time.asctime()+"]"+msg+"\n")
 	file.close()
@@ -103,12 +103,56 @@ class pytalForum:
 		data            = save_file.read()
 		write_log("Data loaded")
 		return data.split("\n")
+	
+def commandBot(bot,botname):
+	write_log("Start commandBot")
+	cache = []
+	room  = "pybottest@conference.jabber.pytal.net"
+	
+	#if user come online or go offline
+	def presenceCB(conn,msg):
+		write_log("User activity changed")
+		prs_type=msg.getType()
+		jid=msg.getFrom()
+		if jid.getResource() not in cache:
+			write_log("User isn't in cache, add him")
+			cache.append(jid.getResource())
+		
+		if prs_type == "unavailable":
+			write_log("User leave the room")
+			if jid.getResource() in cache:
+				cache.remove(jid.getResource())
+
+	#grab messages and do something
+	def messageCB(bot,msg):
+		text = msg.getBody()
+		user = msg.getFrom()
+		
+		if user is not botname and re.match(r'Werner', str(text), re.IGNORECASE):
+			write_log("Speaks to Werner")
+			if re.search(r'online', str(text), re.IGNORECASE) != None:
+				write_log("Show online User")
+				online_msg	= "Zur Zeit sind "
+				for user in cache:
+					online_msg += user+", "
+				online_msg += " online"
+				bot.send(xmpp.protocol.Message(to=room, body=online_msg, typ="groupchat"))
+			else:
+				write_log("no action for bot. Say it")
+				bot.send(xmpp.protocol.Message(to=room, body="Ja was gibt's", typ="groupchat"))
+
+	write_log("register handler")
+	bot.RegisterHandler('message', messageCB)
+	bot.RegisterHandler('presence', presenceCB)
+	
+	while(1 == 1):
+		bot.Process(1)
 
 def main():
 	write_log("Start Bot")
 	jid = xmpp.protocol.JID('webmasterandre@jabber.pytal.net')
 	pwd = '1Pf@df!nd3r'
-	room = 'pytal@conference.jabber.pytal.net'
+	room = 'pybottest@conference.jabber.pytal.net'
 	botname	= "pyBot Test"
 	
 	write_log("Start Jabber Bot")
@@ -125,7 +169,9 @@ def main():
 		exit(0)
 	
 	write_log("Join room")
-	join	= xmpp.protocol.Presence(to='%s/%s' % (room, botname))
+	join	= xmpp.Presence(to='%s/%s' % (room, botname))
+	join.setTag('x', namespace=xmpp.NS_MUC).setTagData('password', "")
+	join.getTag('x').addChild('history',{'maxchars':'0','maxstanzas':'0'})
 	bot.send(join)
 	
 	bot.Process(1)
@@ -133,6 +179,9 @@ def main():
 	write_log("Jabber Bot successfuly starts")
 
 	forum   = pytalForum()
+	
+	botcommand	= threading.Thread(target=commandBot, args=(bot,botname,))
+	botcommand.start()
 	
 	write_log("End Init. Go into while")
 	while(1==1):
