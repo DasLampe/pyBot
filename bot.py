@@ -127,19 +127,19 @@ def commandBot(bot,botname):
 	def messageCB(bot,msg):
 		text = msg.getBody()
 		user = msg.getFrom()
-		
-		if user is not botname and re.match(r'Werner', unicode( str(text), "UTF-8"), re.IGNORECASE):
-			write_log("Speaks to Werner")
-			if re.search(r'online', str(text), re.IGNORECASE) != None:
-				write_log("Show online User")
-				online_msg	= "Zur Zeit sind "
-				for user in cache:
-					online_msg += user+", "
-				online_msg += " online"
-				bot.send(xmpp.protocol.Message(to=room, body=online_msg, typ="groupchat"))
-			else:
-				write_log("no action for bot. Say it")
-				bot.send(xmpp.protocol.Message(to=room, body="Ja was gibt's", typ="groupchat"))
+		if text != None:
+			if user is not botname and re.match(u'Werner', text, re.IGNORECASE):
+				write_log("Speaks to Werner")
+				if re.search(u'online', text, re.IGNORECASE) != None:
+					write_log("Show online User")
+					online_msg	= "Zur Zeit sind "
+					for user in cache:
+						online_msg += user+", "
+					online_msg += " online"
+					bot.send(xmpp.protocol.Message(to=room, body=online_msg, typ="groupchat"))
+				else:
+					write_log("no action for bot. Say it")
+					bot.send(xmpp.protocol.Message(to=room, body="Ja was gibt's", typ="groupchat"))
 
 	write_log("register handler")
 	bot.RegisterHandler('message', messageCB)
