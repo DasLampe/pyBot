@@ -128,7 +128,7 @@ def commandBot(bot,botname):
 		text = msg.getBody()
 		user = msg.getFrom()
 		
-		if user is not botname and re.match(r'Werner', str(text), re.IGNORECASE):
+		if user is not botname and re.match(r'Werner', unicode( str(text), "UTF-8"), re.IGNORECASE):
 			write_log("Speaks to Werner")
 			if re.search(r'online', str(text), re.IGNORECASE) != None:
 				write_log("Show online User")
