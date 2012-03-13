@@ -1,17 +1,5 @@
 # -*- coding: utf-8 -*-
 
-##   Copyright (C) 2011 Matthias Matousek <matou@taunusstein.net>
-##
-##   This program is free software; you can redistribute it and/or modify
-##   it under the terms of the GNU General Public License as published by
-##   the Free Software Foundation; either version 2, or (at your option)
-##   any later version.
-##
-##   This program is distributed in the hope that it will be useful,
-##   but WITHOUT ANY WARRANTY; without even the implied warranty of
-##   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-##   GNU General Public License for more details.
-
 import xmpp, time, re, mechanize, threading, os, sys
 DEBUG	= False #Set True for Log
 
@@ -129,7 +117,7 @@ def commandBot(bot,botname, room):
 		
 		if user is not botname and re.match(r'Werner', unicode( str(text), "UTF-8"), re.IGNORECASE):
 			write_log("Speaks to Werner")
-			if re.search(r'online', str(text), re.IGNORECASE) != None:
+			if re.search(r'online', unicode( str(text), "UTF-8"), re.IGNORECASE) != None:
 				write_log("Show online User")
 				online_msg	= "Zur Zeit sind "
 				for user in cache:
@@ -149,10 +137,13 @@ def commandBot(bot,botname, room):
 
 def main():
 	write_log("Start Bot")
-	jid = xmpp.protocol.JID("username@jabber.pytal.net") #Your jid
-	pwd = "Password" #Your Password
-	room = 'pytal@conference.jabber.pytal.net'
-	botname	= "pyBot Werner" #Displayname for bot
+	jid = xmpp.protocol.JID(sys.argv[1]+"@jabber.pytal.net") #Your jid
+	pwd = sys.argv[2] #Your Password
+	room = sys.argv[3]+'@conference.jabber.pytal.net'
+	botname	= sys.argv[4] #Displayname for bot
+	
+	if len(sys.argv) > 4:
+		DEBUG = True
 	
 	write_log("Start Jabber Bot")
 	
