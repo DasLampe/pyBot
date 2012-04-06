@@ -124,7 +124,7 @@ def commandBot(bot,botname, room):
 					online_msg += user+", "
 				online_msg += " online"
 				bot.send(xmpp.protocol.Message(to=room, body=online_msg, typ="groupchat"))
-			else: if re.search(r'Keks', unicode(str(text), "UTF-8"), re.IGNORECASE) != None:
+			elif re.search(r'Keks', unicode(str(text), "UTF-8"), re.IGNORECASE) != None:
 				write_log("Handing a cookie to user")
 				bot.send(xmpp.protocol.Message(to=room, body="/me gibt " + user + " einen Keks", typ="groupchat"))
 				bot.send(xmpp.protocol.Message(to=room, body="Bitte, " + user + "!", typ="groupchat"))
