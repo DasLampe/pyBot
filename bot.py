@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import xmpp, time, threading, sys, commandBot, pytalGrab
-DEBUG	= True #Set True for Log
+DEBUG	= False #Set True for Log
 
 def write_log(msg):
 	if DEBUG == True:
@@ -59,10 +59,11 @@ def main():
 	write_log("End Init. Go into while")
 
 	while 1:
-		user_input = str(raw_input())
-		if user_input == "quit":
-			sendMessage(bot, room, "DasLampe hat gesagt, dass ich jetzt gehen muss. Bis dann!")
-			break
+		#user_input = str(raw_input())
+		#if user_input == "quit":
+		#		sendMessage(bot, room, "DasLampe hat gesagt, dass ich jetzt gehen muss. Bis dann!")
+		#		break
+		pass
 	exit()
 
 main()
