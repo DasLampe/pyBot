@@ -56,14 +56,8 @@ def main():
 	pytal.start()
 	
 	
-	write_log("End Init. Go into while")
-
-	while 1:
-		#user_input = str(raw_input())
-		#if user_input == "quit":
-		#		sendMessage(bot, room, "DasLampe hat gesagt, dass ich jetzt gehen muss. Bis dann!")
-		#		break
-		pass
+	pytal.join()
+	botcommand.join()
 	exit()
 
 main()
