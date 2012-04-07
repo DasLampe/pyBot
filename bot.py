@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
 
-import xmpp, time, re, mechanize, threading, os, sys
-DEBUG	= False #Set True for Log
+import xmpp, time, re, mechanize, threading, os, sys, commandBot
+DEBUG	= True #Set True for Log
 
 def write_log(msg):
 	if DEBUG == True:
 		print("["+time.asctime()+"]"+msg+"\n")
-	file		= open(os.path.dirname(os.path.realpath(__file__))+"/log.dat", "a")
+	file		= open("log.dat", "a")
 	file.write("["+time.asctime()+"]"+msg+"\n")
 	file.close()
 
-class pytalForum:
-	def __init__(self):
+class pytalGrab:
+	def __init__(self, bot, room):
 		self.save_file				= os.path.dirname(os.path.realpath(__file__))+"/pytalForum.dat"
 		self.br						= mechanize.Browser()
 		self.br.addheaders			= [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/8.0')]
 		self.newest_post_username	= ""
 		self.newest_post_timestamp	= 0
+		
+		self.bot					= bot
+		self.room					= room
 
 	def find_new_thread(self):
 		write_log("Borwse to pytal.de")
@@ -92,6 +95,7 @@ class pytalForum:
 		write_log("Data loaded")
 		return data.split("\n")
 	
+<<<<<<< Updated upstream
 def commandBot(bot,botname, room):
 	write_log("Start commandBot")
 	cache = [] 
@@ -139,8 +143,30 @@ def commandBot(bot,botname, room):
 	
 	while(1 == 1):
 		bot.Process(1)
+=======
+	def run(self):
+		while 1:
+			try:
+				posts   = self.find_new_thread()
+				if posts is not False:
+					write_log("Send Message!")
+					write_log(posts)
+					self.bot.send(xmpp.protocol.Message(to=self.room, body=posts, typ='groupchat'))
+					write_log("Message sends")
+				else:
+					write_log("No new posts")
+				write_log("Done ... wait 5 min and do again")
+				time.sleep(100)
+			except:
+				write_log("Error - Except!")
+				continue
+>>>>>>> Stashed changes
 
 def main():
+	def sendMessage(bot,room,message):
+		bot.send(xmpp.Message(room, body=message, typ='groupchat'))
+
+	global done
 	write_log("Start Bot")
 	jid = xmpp.protocol.JID(sys.argv[1]+"@jabber.pytal.net") #Your jid
 	pwd = sys.argv[2] #Your Password
@@ -173,28 +199,25 @@ def main():
 	
 	write_log("Jabber Bot successfuly started")
 
-	forum   = pytalForum()
+	forum   = pytalForum(bot, room)
 	
-	botcommand	= threading.Thread(target=commandBot, args=(bot,botname,room,))
+	botcommand	= threading.Thread(target=commandBot.commandBot, args=(bot,botname,room,))
+	botcommand.setDaemon(True)
 	botcommand.start()
 	
+	pytalGrab	= threading.Thread(target=forum.run, args=())
+	pytalGrab.setDaemon(True)
+	pytalGrab.start()
+	
+	
 	write_log("End Init. Go into while")
-	while(1==1):
-		try:
-			posts   = forum.find_new_thread()
-			if posts is not False:
-				write_log("Send Message!")
-				write_log(posts)
-				bot.send(xmpp.protocol.Message(to=room, body=posts, typ='groupchat'))
-				write_log("Message sends")
-			else:
-				write_log("No new posts")
-			write_log("Done ... wait 5 min and do again")
-			time.sleep(300)
-		except:
-			write_log("Error - Except!")
-			main()
-	bot.disconnect()
-	write_log("Close Bot")
+
+	while 1:
+		user_input = str(raw_input())
+		if user_input == "quit":
+			sendMessage(bot, room, "DasLampe hat gesagt, dass ich jetzt gehen muss. Bis dann!")
+			break
+		
+	exit()
 
 main()
