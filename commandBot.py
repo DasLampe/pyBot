@@ -36,7 +36,7 @@ class commandBot:
 		user = msg.getFrom()
 		
 		if text != None:
-			if user.getResource() != self.botname and re.search(u'Werner', text, re.IGNORECASE):
+			if user.getResource() != self.botname and re.match(u'Werner', text, re.IGNORECASE):
 				if re.search(u'online', text, re.IGNORECASE) != None:
 					online_msg	= "Zur Zeit sind "
 					for user in self.cache:
