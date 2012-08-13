@@ -13,7 +13,7 @@ class commandBot:
 		self.bot.RegisterHandler('message', self.messageCB)
 		self.bot.RegisterHandler('presence', self.presenceCB)
 		
-		while(1 == 1):
+		while True:
 			self.bot.Process(1)
 	
 	#if user come online or go offline
@@ -24,6 +24,7 @@ class commandBot:
 		if jid.getResource() not in self.cache:
 			#write_log("User isn't in cache, add him")
 			self.cache.append(jid.getResource())
+			self.bot.send(xmpp.protocol.Message(to=self.room, body="Willkommen "+jid.getResource()+"! :)", typ="groupchat"))
 		
 		if prs_type == "unavailable":
 			#write_log("User leave the room")
