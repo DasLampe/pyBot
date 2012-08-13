@@ -38,16 +38,20 @@ class commandBot:
 		if text != None:
 			if user.getResource() != self.botname and re.match(u'Werner', text, re.IGNORECASE):
 				if re.search(u'online', text, re.IGNORECASE) != None:
-					online_msg	= "Zur Zeit sind "
-					for user in self.cache:
+					online_msg	= "Zur Zeit sind %d Nutzer online:\n" % len(self.cache)
+					for i in range(len(self.cache)):
+						user = self.cache[i]
 						if user == self.botname:
-							user = "Ich (der coole Bot)"
-						online_msg += user+", "
-					online_msg += " online"
+							user = "ich (der coole Bot)"
+						if i != len(self.cache) - 1:
+							online_msg += user+", "
+						else:
+							online_msg += user
+					test = len(self.cache)
 					bot.send(xmpp.protocol.Message(to=self.room, body=online_msg, typ="groupchat"))
 				elif re.search(u'Keks', text, re.IGNORECASE) != None:
 					username = user.getResource()
 					bot.send(xmpp.protocol.Message(to=self.room, body="/me gibt " + username + " einen Keks", typ="groupchat"))
 					bot.send(xmpp.protocol.Message(to=self.room, body=("Bitte, " + username + "!"), typ="groupchat"))
 				else:
-					bot.send(xmpp.protocol.Message(to=self.room, body="Ja was gibt's", typ="groupchat"))
+					bot.send(xmpp.protocol.Message(to=self.room, body="Ja, was gibt's?", typ="groupchat"))
