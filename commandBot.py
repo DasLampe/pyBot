@@ -13,7 +13,7 @@ class commandBot:
 		self.bot.RegisterHandler('message', self.messageCB)
 		self.bot.RegisterHandler('presence', self.presenceCB)
 		
-		while(1 == 1):
+		while True:
 			self.bot.Process(1)
 	
 	#if user come online or go offline
@@ -24,6 +24,7 @@ class commandBot:
 		if jid.getResource() not in self.cache:
 			#write_log("User isn't in cache, add him")
 			self.cache.append(jid.getResource())
+			self.bot.send(xmpp.protocol.Message(to=self.room, body="Willkommen "+jid.getResource()+"! :)", typ="groupchat"))
 		
 		if prs_type == "unavailable":
 			#write_log("User leave the room")
@@ -38,16 +39,22 @@ class commandBot:
 		if text != None:
 			if user.getResource() != self.botname and re.match(u'Werner', text, re.IGNORECASE):
 				if re.search(u'online', text, re.IGNORECASE) != None:
-					online_msg	= "Zur Zeit sind "
-					for user in self.cache:
-						if user == self.botname:
-							user = "Ich (der coole Bot)"
-						online_msg += user+", "
-					online_msg += " online"
+					online_msg	= "Zur Zeit sind %d Nutzer online:\n" % len(self.cache)
+					for i in range(len(self.cache)):
+						useri = self.cache[i]
+						if useri == self.botname:
+							useri = "ich (der coole Bot)"
+						if i != len(self.cache) - 1:
+							online_msg += useri+", "
+						else:
+							online_msg += useri
+					test = len(self.cache)
 					bot.send(xmpp.protocol.Message(to=self.room, body=online_msg, typ="groupchat"))
 				elif re.search(u'Keks', text, re.IGNORECASE) != None:
 					username = user.getResource()
 					bot.send(xmpp.protocol.Message(to=self.room, body="/me gibt " + username + " einen Keks", typ="groupchat"))
 					bot.send(xmpp.protocol.Message(to=self.room, body=("Bitte, " + username + "!"), typ="groupchat"))
 				else:
-					bot.send(xmpp.protocol.Message(to=self.room, body="Ja was gibt's", typ="groupchat"))
+					bot.send(xmpp.protocol.Message(to=self.room, body="Ja, was gibt's?", typ="groupchat"))
+		if user.getResource() != self.botname and re.search(u'geh ins bett', text, re.IGNORECASE) or re.search(u'geh off', text, re.IGNORECASE) or re.match(u'bin im bett', text, re.IGNORECASE) or re.match(u'bin off', text, re.IGNORECASE):
+				bot.send(xmpp.protocol.Message(to=self.room, body="Ciao " + user.getResource() + "! :)", typ="groupchat"))
