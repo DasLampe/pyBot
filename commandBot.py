@@ -48,7 +48,6 @@ class commandBot:
 							online_msg += useri+", "
 						else:
 							online_msg += useri
-					test = len(self.cache)
 					bot.send(xmpp.protocol.Message(to=self.room, body=online_msg, typ="groupchat"))
 				elif re.search(u'Keks', text, re.IGNORECASE) != None:
 					username = user.getResource()
@@ -56,5 +55,5 @@ class commandBot:
 					bot.send(xmpp.protocol.Message(to=self.room, body=("Bitte, " + username + "!"), typ="groupchat"))
 				else:
 					bot.send(xmpp.protocol.Message(to=self.room, body="Ja, was gibt's?", typ="groupchat"))
-		if user.getResource() != self.botname and re.search(u'geh ins bett', text, re.IGNORECASE) or re.search(u'geh off', text, re.IGNORECASE) or re.match(u'bin im bett', text, re.IGNORECASE) or re.match(u'bin off', text, re.IGNORECASE):
+			if user.getResource() != self.botname and re.search(u'geh ins bett', text, re.IGNORECASE) or re.search(u'geh off', text, re.IGNORECASE) or re.match(u'bin im bett', text, re.IGNORECASE) or re.match(u'bin off', text, re.IGNORECASE):
 				bot.send(xmpp.protocol.Message(to=self.room, body="Ciao " + user.getResource() + "! :)", typ="groupchat"))
